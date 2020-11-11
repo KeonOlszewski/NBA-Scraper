@@ -30,8 +30,7 @@ for tr in table_rows:
 points = []
 for row in table:
     if(len(row) >= 26):
-        
-        points.append(int(row[26]))
+         points.append(int(row[26]))
 
 
     
