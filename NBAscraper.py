@@ -26,19 +26,12 @@ for tr in table_rows:
     if len(row) > 0:
         table.append(row)
 
-print(table)
 
 points = []
 for row in table:
     if(len(row) >= 26):
         
         points.append(int(row[26]))
-
-print(points)
-
-# dfs = pd.read_html(url)
-# for df in dfs:
-#     print(df)
 
 
     
