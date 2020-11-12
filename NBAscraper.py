@@ -5,14 +5,24 @@ import requests
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
+import sys
 
+fullName = input ("Enter player name (ex: Lebron James): ")
+seasonYear = input ("Enter season (ex: 2019-2020): ")
 
+#formating strings for the url
+listName = fullName.lower().split(" ")
 
-#url = "https://www.basketball-reference.com/players/j/jamesle01/gamelog/2020" #Lebron James
+letterUrl = listName[1][0] #need initial of last name
 
-#url = "https://www.basketball-reference.com/players/l/lowryky01/gamelog/2020" #Kyle Lowry
+firstUrl = listName[0][:2] #2 first letters of first name
 
-url = "https://www.basketball-reference.com/players/h/herroty01/gamelog/2020/" #Tyler Herro
+lastUrl = listName[1][:5] #5 first letters of first name
+
+yearUrl = (seasonYear.split("-"))[1] #only need 2020 part of 2019-2020 for example
+
+url = "https://www.basketball-reference.com/players/"+letterUrl+"/"+lastUrl+firstUrl+"01/gamelog/"+yearUrl
+
 
 response = requests.get(url)
 soup = BeautifulSoup(response.text, 'lxml')
@@ -59,9 +69,9 @@ pointsAvgInLoss = round(pointsAvgInLoss, 2)
 print("=================================================")
 
 
-print("Tyler Herro ppg: ",pointsAvg)
-print("Tyler Herro ppg in wins: ",pointsAvgInWin," in ", numWins," wins")
-print("Tyler Herro ppg in losses: ",pointsAvgInLoss," in ", numLosses, "losses")
+print(fullName+" ppg: ",pointsAvg," in "+seasonYear)
+print(fullName+" ppg in wins: ",pointsAvgInWin," in ", numWins," wins")
+print(fullName+" ppg in losses: ",pointsAvgInLoss," in ", numLosses, "losses")
 
 print("=================================================")         
 
@@ -72,8 +82,10 @@ print("=================================================")
     
 plt.figure()
 plt.bar(games, points)
-plt.title('Tyler Herro Scoring 2019-2020')
-plt.axis([0, 67, 0, 50])
+plt.title(fullName+" Scoring "+seasonYear)
+plt.axis([0, 82, 0, 50])
 plt.ylabel('points')
 plt.xlabel('game')
 plt.show()
+
+sys.exit()
